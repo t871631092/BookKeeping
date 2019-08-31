@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonService } from '../service/common.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,11 @@ export class HomePage {
 
   public inputMoney = '';
   public isInput = true;
-  constructor() {
-
+  public typeDate: any;
+  constructor(
+    private common: CommonService,
+  ) {
+    this.typeDate = common.getType();
   }
 
 

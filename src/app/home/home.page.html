@@ -4,91 +4,73 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      记账
     </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
+      <ion-col>
+        <ion-segment scrollable padding-horizontal>
+          <ion-segment-button checked>
+            <ion-label>支出</ion-label>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-label>收入</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col class="money-label">
-          <ion-label>
-              <h1 *ngIf="inputMoney.length != 0">
-                  &nbsp;￥{{inputMoney}}&nbsp;
-              </h1>
-              <h1 *ngIf="inputMoney.length == 0">
-                  ￥0.00
-              </h1>
-            </ion-label>
+        <ion-label>
+          <h1 *ngIf="inputMoney.length != 0">
+            &nbsp;￥{{inputMoney}}&nbsp;
+          </h1>
+          <h1 *ngIf="inputMoney.length == 0">
+            ￥0.00
+          </h1>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col padding-horizontal>
+        <ion-segment scrollable class="segment">
+          <ion-segment-button *ngFor="let item of typeDate">
+            <ion-icon name="{{item.name}}"></ion-icon>
+            <ion-label>{{item.title}}</ion-label>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-icon name="add"></ion-icon>
+            <ion-label></ion-label>
+          </ion-segment-button>
+        </ion-segment>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-          <ion-segment scrollable>
-              <ion-segment-button>
-                <ion-icon name="home"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button checked>
-                <ion-icon name="heart"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="pin"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="star"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="call"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="globe"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="basket"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="globe"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="basket"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="globe"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="basket"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="globe"></ion-icon>
-              </ion-segment-button>
-              <ion-segment-button>
-                <ion-icon name="basket"></ion-icon>
-              </ion-segment-button>
-            </ion-segment>
+        <ion-item padding-horizontal>
+          <ion-label position="fixed">选择日期</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+        </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-          <ion-item>
-              <ion-label>选择日期</ion-label>
-              <ion-datetime displayFormat="YYYY-MM-DD" placeholder="日期"></ion-datetime>
-          </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-          <ion-item>
-              <ion-label>备注</ion-label>
-              <ion-input></ion-input>
-          </ion-item>
+        <ion-item padding-horizontal>
+          <ion-label position="floating">备注</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>
 
 </ion-content>
 <ion-footer *ngIf="isInput">
-  
+
   <ion-grid>
     <ion-row>
       <ion-col>

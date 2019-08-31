@@ -2,18 +2,35 @@
   max-height: 35vh;
   overflow: hidden;
 }
-
+h1{
+  font-size: 1.8em;
+}
 ion-footer{
   margin-bottom: 5vh;
 }
 
 .money-label{
   text-align: center;
-  margin: 5vh auto 1vh auto;
+  margin: 4vh auto 4vh auto;
 }
 
 .confirm-btn{
   height: 100%;
   padding-bottom: 6px;
   font-size: 1em;
+}
+.segment {
+  margin-bottom: 2vh;
+}
+.segment ion-segment-button{
+  min-width: 70px;
+  min-height: 55px;
+}
+.segment ion-label{
+  margin-top: 3px;
+}
+.segment img{
+  height: 24px;
+  width: 24px;
+  padding: 1px;
 }
