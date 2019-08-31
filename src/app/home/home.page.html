@@ -14,11 +14,11 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-segment scrollable padding-horizontal>
-          <ion-segment-button checked>
+        <ion-segment scrollable padding-horizontal [(ngModel)]="countType" (click)="getType()">
+          <ion-segment-button checked value='out'>
             <ion-label>支出</ion-label>
           </ion-segment-button>
-          <ion-segment-button>
+          <ion-segment-button value='in'>
             <ion-label>收入</ion-label>
           </ion-segment-button>
         </ion-segment>
@@ -38,12 +38,12 @@
     </ion-row>
     <ion-row>
       <ion-col padding-horizontal>
-        <ion-segment scrollable class="segment">
-          <ion-segment-button *ngFor="let item of typeDate">
+        <ion-segment scrollable class="segment" [(ngModel)]="selectType" (click)="addType($event)">
+          <ion-segment-button *ngFor="let item of countTypeData;index as i" value='{{i}}'>
             <ion-icon name="{{item.name}}"></ion-icon>
             <ion-label>{{item.title}}</ion-label>
           </ion-segment-button>
-          <ion-segment-button>
+          <ion-segment-button value="-1">
             <ion-icon name="add"></ion-icon>
             <ion-label></ion-label>
           </ion-segment-button>
@@ -54,7 +54,7 @@
       <ion-col>
         <ion-item padding-horizontal>
           <ion-label position="fixed">选择日期</ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+          <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DDDD" value="{{date}}"></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -145,7 +145,7 @@
             </ion-button>
           </ion-col>
           <ion-col>
-            <ion-button expand="full" color="primary" (click)="numberInput('0')">
+            <ion-button expand="full" color="primary" (click)="zeroInput()">
               0
             </ion-button>
           </ion-col>

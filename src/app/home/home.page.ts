@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonService } from '../service/common.service';
+import { CountLog } from '../model/count-log';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +9,17 @@ import { CommonService } from '../service/common.service';
 })
 export class HomePage {
 
+  public countType = 'out';
   public inputMoney = '';
   public isInput = true;
-  public typeDate: any;
+  public countTypeData: any;
+  public date = new Date();
+  public selectType: number;
   constructor(
     private common: CommonService,
   ) {
-    this.typeDate = common.getType();
+    this.countTypeData = this.getType();
+    this.selectType = 0;
   }
 
 
@@ -24,11 +29,27 @@ export class HomePage {
     if (this.inputMoney.length >= 15) {
       return;
     }
+    if (this.inputMoney.trim().length === 1 && this.inputMoney.indexOf('0') === 0) {
+      this.inputMoney = '';
+    }
     if (this.inputMoney.indexOf('.') === -1) {
       this.inputMoney = this.inputMoney + item;
     } else {
       if (/[0-9]*$/g.exec(this.inputMoney)[0].length < 2) {
         this.inputMoney = this.inputMoney + item;
+      }
+    }
+  }
+  public zeroInput() {
+    if (this.inputMoney.indexOf('0') === 0) {
+      return;
+    } else {
+      if (this.inputMoney.indexOf('.') === -1) {
+        this.inputMoney = this.inputMoney + '0';
+      } else {
+        if (/[0-9]*$/g.exec(this.inputMoney)[0].length < 2) {
+          this.inputMoney = this.inputMoney + '0';
+        }
       }
     }
   }
@@ -55,7 +76,9 @@ export class HomePage {
     if (this.inputMoney.indexOf('.') === this.inputMoney.length - 1 ) {
       this.inputMoney = this.inputMoney.slice(0, -1);
     }
-    console.log(this.inputMoney);
+    console.log(this.inputMoney.toString());
+    console.log(this.countType);
+    console.log(this.selectType);
 
   }
 
@@ -71,6 +94,22 @@ export class HomePage {
    */
   public addMode() {
 
+  }
+
+  /**
+   * 增加类型
+   */
+  public addType(e) {
+    console.log(this.selectType);
+  }
+
+  // 获取记账类型
+  private getType() {
+    if (this.countType === 'in') {
+      this.common.getInType((data) => {this.countTypeData = data; });
+    } else if (this.countType === 'out') {
+      this.common.getOutType((data) => {this.countTypeData = data; });
+    }
   }
 
 }
