@@ -2,7 +2,9 @@
 
 ## 安装
 npm i @angular/cli -g
+
 npm i ionic -g
+
 npm i
 
 ## 运行
