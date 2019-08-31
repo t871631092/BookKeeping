@@ -104,7 +104,7 @@ export class HomePage {
   }
 
   // 获取记账类型
-  private getType() {
+  public getType() {
     if (this.countType === 'in') {
       this.common.getInType((data) => {this.countTypeData = data; });
     } else if (this.countType === 'out') {
