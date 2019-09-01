@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonService } from '../service/common.service';
 import { CountLog } from '../model/count-log';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,12 @@ export class HomePage {
   public countTypeData: any;
   public date = new Date();
   public selectType: number;
+  public memo: string;
   constructor(
     private common: CommonService,
+    private datePipe: DatePipe
   ) {
-    this.countTypeData = this.getType();
+    this.getType((data) => this.countTypeData = data );
     this.selectType = 0;
   }
 
@@ -76,10 +79,22 @@ export class HomePage {
     if (this.inputMoney.indexOf('.') === this.inputMoney.length - 1 ) {
       this.inputMoney = this.inputMoney.slice(0, -1);
     }
+    let data = new CountLog();
+    data = {
+      value: parseFloat(this.inputMoney),
+      type: this.countType,
+      icon: this.countTypeData[this.selectType],
+      memo: this.memo,
+      dateStr: this.datePipe.transform(this.date, 'yyyy-MM-dd'),
+      date: this.date
+    };
     console.log(this.inputMoney.toString());
     console.log(this.countType);
     console.log(this.selectType);
-
+    console.log(data);
+    if (this.inputMoney.length > 0) {
+      this.common.addLog(data);
+    }
   }
 
   /**
@@ -104,11 +119,23 @@ export class HomePage {
   }
 
   // 获取记账类型
-  public getType() {
+  public getType(callback?) {
     if (this.countType === 'in') {
-      this.common.getInType((data) => {this.countTypeData = data; });
+      this.common.getInType((data) => {
+        if (callback) {
+          callback(data);
+        } else {
+          this.countTypeData = data;
+        }
+      });
     } else if (this.countType === 'out') {
-      this.common.getOutType((data) => {this.countTypeData = data; });
+      this.common.getOutType((data) => {
+        if (callback) {
+          callback(data);
+        } else {
+          this.countTypeData = data;
+        }
+      });
     }
   }
 
