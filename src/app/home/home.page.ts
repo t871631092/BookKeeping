@@ -9,7 +9,6 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   public countType = 'out';
   public inputMoney = '';
   public isInput = true;
